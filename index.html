@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
     <style>
+        /* ===== RESET ===== */
         * {
             margin: 0;
             padding: 0;
@@ -80,7 +81,7 @@
             color: #d4af37 !important;
         }
 
-        /* ===== HAMBURGER ===== */
+        /* ===== HAMBURGER MENU - FIXED ===== */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -89,6 +90,7 @@
             background: none;
             border: none;
             padding: 5px;
+            z-index: 1001;
         }
         .hamburger span {
             display: block;
@@ -96,7 +98,7 @@
             height: 2.5px;
             background: #fff;
             border-radius: 2px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         .hamburger.active span:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
@@ -108,38 +110,46 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* ===== MOBILE NAV ===== */
+        /* ===== MOBILE NAV - FIXED ===== */
         .mobile-nav {
             display: none;
             position: fixed;
-            top: 75px;
+            top: 0;
             left: 0;
             width: 100%;
+            height: 100vh;
             background: rgba(13, 13, 13, 0.98);
             backdrop-filter: blur(12px);
-            padding: 30px 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 100px 24px 40px;
             z-index: 999;
             flex-direction: column;
-            gap: 20px;
             align-items: center;
+            justify-content: center;
+            gap: 30px;
         }
-        .mobile-nav.active { display: flex; }
+        .mobile-nav.active {
+            display: flex;
+        }
         .mobile-nav a {
-            font-size: 1.1rem;
+            font-size: 1.5rem;
+            font-weight: 400;
             color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s;
             padding: 8px 0;
         }
-        .mobile-nav a:hover { color: #fff; }
+        .mobile-nav a:hover {
+            color: #fff;
+        }
         .mobile-nav .nav-cta-mobile {
             color: #c8a86e !important;
             font-weight: 600 !important;
+            font-size: 1.5rem;
         }
         .mobile-nav .nav-cta-mobile::after {
             content: ' →';
         }
 
-        /* ===== HERO WITH ANIMATED BACKGROUND ===== */
+        /* ===== HERO - CORRECT BACKGROUND ===== */
         .hero {
             position: relative;
             min-height: 100vh;
@@ -149,10 +159,14 @@
             text-align: center;
             padding: 120px 20px 60px;
             overflow: hidden;
-            background: #0d0d0d;
+            background: 
+                radial-gradient(ellipse at 30% 40%, rgba(180, 150, 100, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(180, 150, 100, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(100, 80, 50, 0.1) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0a0a 0%, #141414 50%, #0a0a0a 100%);
         }
 
-        /* Animated gradient background */
+        /* Animated glow */
         .hero::before {
             content: '';
             position: absolute;
@@ -161,17 +175,15 @@
             width: 200%;
             height: 200%;
             background: 
-                radial-gradient(ellipse at 30% 40%, rgba(200, 168, 110, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 60%, rgba(200, 168, 110, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(100, 80, 50, 0.08) 0%, transparent 40%);
-            animation: gradientMove 15s ease-in-out infinite alternate;
+                radial-gradient(ellipse at 40% 50%, rgba(200, 168, 110, 0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 60% 50%, rgba(200, 168, 110, 0.05) 0%, transparent 40%);
+            animation: glowMove 12s ease-in-out infinite alternate;
             z-index: 0;
         }
 
-        @keyframes gradientMove {
-            0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
-            50% { transform: scale(1.08) rotate(2deg); opacity: 1; }
-            100% { transform: scale(1) rotate(-2deg); opacity: 0.6; }
+        @keyframes glowMove {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            100% { transform: scale(1.05) rotate(2deg); opacity: 1; }
         }
 
         .hero-content {
@@ -179,6 +191,15 @@
             z-index: 1;
             max-width: 700px;
         }
+
+        .hero-tagline {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
         .hero-content h1 {
             font-size: clamp(2.8rem, 8vw, 5.5rem);
             font-weight: 700;
@@ -243,7 +264,7 @@
         .scroll-hint {
             margin-top: 40px;
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.25);
             animation: bounce 2s infinite;
             letter-spacing: 2px;
         }
@@ -291,7 +312,7 @@
             font-size: 1.8rem;
             margin-bottom: 10px;
             display: block;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
         }
         .style-item span {
             font-size: 0.85rem;
@@ -341,10 +362,22 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .nav { display: none; }
-            .hamburger { display: flex; }
-            .hero-badges { flex-direction: column; gap: 8px; font-size: 0.8rem; }
-            .hero-buttons { flex-direction: column; align-items: center; gap: 8px; }
+            .nav {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero-badges {
+                flex-direction: column;
+                gap: 8px;
+                font-size: 0.8rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
             .hero-buttons .btn-primary,
             .hero-buttons .btn-secondary {
                 width: 100%;
@@ -358,7 +391,16 @@
             }
             .style-item { padding: 16px 8px; }
             .style-item i { font-size: 1.4rem; }
-            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .mobile-nav a {
+                font-size: 1.2rem;
+            }
+            .mobile-nav .nav-cta-mobile {
+                font-size: 1.2rem;
+            }
         }
         @media (max-width: 480px) {
             .hero-content h1 { font-size: 2.4rem; }
@@ -373,13 +415,17 @@
     <!-- ===== HEADER ===== -->
     <header class="header">
         <div class="container">
-            <div class="logo"><a href="#">InkForge</a></div>
+            <div class="logo">
+                <a href="#">InkForge</a>
+            </div>
             <nav class="nav">
                 <a href="#styles">Gallery</a>
                 <a href="#booking" class="nav-cta">Book a session</a>
             </nav>
-            <button class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     </header>
@@ -394,6 +440,7 @@
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
         <div class="hero-content">
+            <p class="hero-tagline">A MODERN TATTOO STUDIO</p>
             <h1>Tattoos,<br />done right.</h1>
             <p class="hero-sub">Independent artist. Custom work only.<br />I turn your idea into ink — clean lines, honest pricing, no rush.</p>
             <div class="hero-buttons">
@@ -445,25 +492,41 @@
         </div>
     </footer>
 
-    <!-- ===== SCRIPT ===== -->
+    <!-- ===== SCRIPT - FIXED ===== -->
     <script>
-        // Hamburger menu
+        // ===== HAMBURGER MENU - WORKING =====
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobileNav');
+        const body = document.body;
 
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
             this.classList.toggle('active');
             mobileNav.classList.toggle('active');
+            body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
         });
 
+        // Close menu when a link is clicked
         mobileNav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', function() {
                 hamburger.classList.remove('active');
                 mobileNav.classList.remove('active');
+                body.style.overflow = '';
             });
         });
 
-        // Smooth scroll
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (mobileNav.classList.contains('active') && 
+                !mobileNav.contains(e.target) && 
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+
+        // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
