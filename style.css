@@ -71,7 +71,8 @@ img {
     transition: color 0.3s;
 }
 
-.nav a:hover {
+.nav a:hover,
+.nav a.active {
     color: #fff;
 }
 
@@ -95,6 +96,10 @@ img {
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    background: 
+        radial-gradient(ellipse at 30% 50%, rgba(50, 30, 30, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 50%, rgba(30, 30, 50, 0.4) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
 }
 
 .slideshow {
@@ -113,6 +118,7 @@ img {
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-color: #1a1a1a;
     opacity: 0;
     transition: opacity 1s ease-in-out;
 }
@@ -170,6 +176,14 @@ img {
     margin-right: 6px;
 }
 
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
 .btn-primary {
     display: inline-block;
     background: #fff;
@@ -187,6 +201,24 @@ img {
 .btn-primary:hover {
     background: #e0e0e0;
     transform: scale(1.02);
+}
+
+.btn-secondary {
+    display: inline-block;
+    background: transparent;
+    color: #fff;
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
 }
 
 .scroll-hint {
@@ -346,7 +378,9 @@ img {
 /* ===== BOOKING SECTION ===== */
 .booking {
     padding: 80px 0;
-    background: #0d0d0d;
+    background: 
+        radial-gradient(ellipse at 50% 0%, rgba(40, 40, 60, 0.1) 0%, transparent 70%),
+        #0d0d0d;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -469,7 +503,9 @@ img {
 /* ===== DEPOSIT & PAYMENT ===== */
 .deposit {
     padding: 80px 0;
-    background: #0a0a0a;
+    background: 
+        radial-gradient(ellipse at 50% 100%, rgba(40, 30, 30, 0.15) 0%, transparent 70%),
+        #0a0a0a;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -545,7 +581,9 @@ img {
 /* ===== STUDIO TERMS & SIGNATURE ===== */
 .studio-terms-section {
     padding: 80px 0;
-    background: #0d0d0d;
+    background: 
+        radial-gradient(ellipse at 50% 50%, rgba(30, 30, 50, 0.1) 0%, transparent 70%),
+        #0d0d0d;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -703,6 +741,124 @@ img {
     background: #28a745;
 }
 
+/* ===== WORK PAGE SPECIFIC STYLES ===== */
+
+/* Work Hero - Dark Gradient Background */
+.work-hero {
+    padding: 140px 0 80px;
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(60, 30, 30, 0.3) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(30, 30, 60, 0.3) 0%, transparent 60%),
+        linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle animated glow on work hero */
+.work-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 70%);
+    animation: subtleGlow 8s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes subtleGlow {
+    0% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+    100% { opacity: 0.8; transform: scale(1.1) rotate(3deg); }
+}
+
+.work-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.work-sub {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.6;
+}
+
+.work-tag {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: 2px;
+    padding: 4px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Work Gallery - Dark Background with Subtle Texture */
+.work-gallery {
+    padding: 60px 0 80px;
+    background: 
+        radial-gradient(ellipse at 50% 0%, rgba(40, 40, 60, 0.15) 0%, transparent 70%),
+        #0d0d0d;
+}
+
+.work-gallery .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.work-gallery .gallery-item {
+    aspect-ratio: 1 / 1;
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.4s ease;
+}
+
+.work-gallery .gallery-item:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.work-gallery .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.work-gallery .gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Work CTA */
+.work-cta {
+    padding: 80px 0;
+    background: 
+        radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 70%),
+        #0d0d0d;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.work-cta p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 20px;
+}
+
 /* ===== FOOTER ===== */
 .footer {
     padding: 32px 0;
@@ -721,6 +877,10 @@ img {
 
     .nav a:not(.nav-cta) {
         display: none;
+    }
+
+    .nav a.active {
+        display: inline-block;
     }
 
     .nav-cta {
@@ -746,6 +906,19 @@ img {
         flex-direction: column;
         gap: 8px;
         font-size: 0.8rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+        padding: 14px 20px;
     }
 
     .styles-grid {
@@ -823,6 +996,19 @@ img {
         width: 100%;
         justify-content: center;
     }
+
+    .work-hero {
+        padding: 120px 0 40px;
+    }
+
+    .work-hero h1 {
+        font-size: 2rem;
+    }
+
+    .work-gallery .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -861,5 +1047,18 @@ img {
 
     #signatureCanvas {
         height: 120px;
+    }
+
+    .work-gallery .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .work-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .work-sub {
+        font-size: 0.9rem;
     }
 }
