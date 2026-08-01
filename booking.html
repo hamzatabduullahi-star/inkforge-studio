@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InkForge – Book a Session</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <div class="logo"><a href="index.html">InkForge</a></div>
+            <nav class="nav">
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html" class="nav-cta active">Book a session</a>
+            </nav>
+            <button class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== MOBILE NAV ===== -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book a session</a>
+        <a href="aftercare.html">Aftercare</a>
+    </div>
+
+    <!-- ===== BOOKING HERO ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Book a Session</h1>
+            <p class="page-sub">Confirm your appointment.</p>
+        </div>
+    </section>
+
+    <!-- ===== BOOKING FORM ===== -->
+    <section class="booking-page">
+        <div class="container">
+            <div class="booking-grid">
+                <!-- Step 1 -->
+                <div class="booking-step">
+                    <span class="step-number">01</span>
+                    <h3>You</h3>
+                    <div class="form-group">
+                        <label>FULL NAME</label>
+                        <input type="text" id="clientName" placeholder="Jane Doe" />
+                    </div>
+                    <div class="form-group">
+                        <label>EMAIL</label>
+                        <input type="email" id="clientEmail" placeholder="jane@example.com" />
+                    </div>
+                    <div class="form-group">
+                        <label>PHONE</label>
+                        <input type="tel" id="clientPhone" placeholder="+1 949-439-8195" />
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="booking-step">
+                    <span class="step-number">02</span>
+                    <h3>Your appointment</h3>
+
+                    <div class="form-group">
+                        <label>PLACEMENT</label>
+                        <div class="placement-grid">
+                            <button class="placement-btn" data-value="Forearm">Forearm</button>
+                            <button class="placement-btn" data-value="Upper arm">Upper arm</button>
+                            <button class="placement-btn" data-value="Chest">Chest</button>
+                            <button class="placement-btn" data-value="Back">Back</button>
+                            <button class="placement-btn" data-value="Leg">Leg</button>
+                            <button class="placement-btn" data-value="Neck">Neck</button>
+                            <button class="placement-btn" data-value="Ribcage">Ribcage</button>
+                            <button class="placement-btn" data-value="Hand/finger">Hand/finger</button>
+                            <button class="placement-btn" data-value="Foot/ankle">Foot/ankle</button>
+                        </div>
+                        <input type="hidden" id="selectedPlacement" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>APPROXIMATE SIZE</label>
+                        <select id="tattooSize">
+                            <option value="">Select a size</option>
+                            <option value="Small (2-4 inches)">Small (2-4 inches)</option>
+                            <option value="Medium (4-8 inches)">Medium (4-8 inches)</option>
+                            <option value="Large (8-12 inches)">Large (8-12 inches)</option>
+                            <option value="XL (12+ inches)">XL (12+ inches)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>PREFERRED DATE</label>
+                        <input type="date" id="preferredDate" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>QUICK RECAP OF YOUR IDEA</label>
+                        <textarea id="ideaRecap" rows="3" placeholder="A short summary of what we already discussed..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== DEPOSIT ===== -->
+            <div class="deposit-section">
+                <h2>A 50% refundable deposit<br />books your appointment.</h2>
+                <p class="deposit-desc">
+                    A <strong>refundable 50% deposit</strong> is required to secure your
+                    appointment. This deposit will be credited toward your final balance
+                    and remains <strong>fully refundable up to 48 hours</strong> before
+                    your session.
+                </p>
+
+                <div class="payment-methods">
+                    <label>PREFERRED PAYMENT METHOD</label>
+                    <div class="payment-grid">
+                        <button class="payment-btn" data-value="Zelle">Zelle</button>
+                        <button class="payment-btn" data-value="Apple Pay">Apple Pay</button>
+                        <button class="payment-btn" data-value="PayPal">PayPal</button>
+                        <button class="payment-btn" data-value="Chime">Chime</button>
+                        <button class="payment-btn" data-value="Bitcoin">Bitcoin</button>
+                    </div>
+                    <input type="hidden" id="selectedPayment" value="" />
+                </div>
+            </div>
+
+            <!-- ===== TERMS & SIGNATURE ===== -->
+            <div class="terms-section">
+                <h2>Studio Terms</h2>
+                <p class="terms-sub">InkForge — quick terms.</p>
+
+                <div class="terms-content">
+                    <ol>
+                        <li>
+                            <strong>Deposit.</strong> A refundable 50% deposit of our agreed total books your appointment. I'll reach out with the payment details once you've submitted this form. The deposit is applied to your final cost.
+                        </li>
+                    </ol>
+                    <div class="terms-checkbox">
+                        <input type="checkbox" id="agreeTerms" />
+                        <label for="agreeTerms">I agree to the studio terms and confirm my info is accurate.</label>
+                    </div>
+                </div>
+
+                <div class="signature-area">
+                    <label>SIGN HERE</label>
+                    <p class="signature-hint">Sign with mouse, trackpad or finger.</p>
+                    <div class="signature-pad">
+                        <canvas id="signatureCanvas"></canvas>
+                        <button class="btn-clear" id="clearSignature">CLEAR</button>
+                    </div>
+                </div>
+
+                <p class="response-note">I'll reach out within 48 hours.</p>
+
+                <button class="btn-primary" id="confirmBooking">
+                    Confirm appointment →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 InkForge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
