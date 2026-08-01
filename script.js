@@ -1,78 +1,36 @@
-// ===== SLIDESHOW =====
-const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('sliderDots');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-let currentSlide = 0;
-let slideInterval;
+// ===== HAMBURGER MENU =====
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+const body = document.body;
 
-// Create dots
-if (dotsContainer) {
-    slides.forEach((_, index) => {
-        const dot = document.createElement('span');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        dotsContainer.appendChild(dot);
-    });
-}
-
-const dots = dotsContainer ? dotsContainer.querySelectorAll('span') : [];
-
-function goToSlide(index) {
-    slides.forEach(s => s.classList.remove('active'));
-    dots.forEach(d => d.classList.remove('active'));
-    currentSlide = index;
-    slides[currentSlide].classList.add('active');
-    if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-    goToSlide((currentSlide + 1) % slides.length);
-}
-
-function prevSlide() {
-    goToSlide((currentSlide - 1 + slides.length) % slides.length);
-}
-
-function startSlideshow() {
-    slideInterval = setInterval(nextSlide, 4000);
-}
-
-function resetSlideshow() {
-    clearInterval(slideInterval);
-    startSlideshow();
-}
-
-if (prevBtn && nextBtn) {
-    nextBtn.addEventListener('click', () => {
-        nextSlide();
-        resetSlideshow();
+if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
     });
 
-    prevBtn.addEventListener('click', () => {
-        prevSlide();
-        resetSlideshow();
+    // Close menu when a link is clicked
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+            body.style.overflow = '';
+        });
     });
-}
 
-const hero = document.getElementById('hero');
-if (hero) {
-    hero.addEventListener('mouseenter', () => clearInterval(slideInterval));
-    hero.addEventListener('mouseleave', startSlideshow);
-}
-
-startSlideshow();
-
-// ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (mobileNav.classList.contains('active') &&
+            !mobileNav.contains(e.target) &&
+            !hamburger.contains(e.target)) {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+            body.style.overflow = '';
         }
     });
-});
+}
 
 // ===== PLACEMENT BUTTONS =====
 const placementBtns = document.querySelectorAll('.placement-btn');
@@ -82,7 +40,9 @@ placementBtns.forEach(btn => {
     btn.addEventListener('click', function() {
         placementBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        selectedPlacement.value = this.dataset.value;
+        if (selectedPlacement) {
+            selectedPlacement.value = this.dataset.value;
+        }
     });
 });
 
@@ -94,7 +54,9 @@ paymentBtns.forEach(btn => {
     btn.addEventListener('click', function() {
         paymentBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
-        selectedPayment.value = this.dataset.value;
+        if (selectedPayment) {
+            selectedPayment.value = this.dataset.value;
+        }
     });
 });
 
@@ -167,7 +129,6 @@ if (canvas) {
         checkSignature();
     });
 
-    // ===== CHECK SIGNATURE & TERMS =====
     function checkSignature() {
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const pixels = imageData.data;
@@ -178,18 +139,19 @@ if (canvas) {
                 break;
             }
         }
-        const agree = document.getElementById('agreeTerms').checked;
+        const agree = document.getElementById('agreeTerms');
         const confirmBtn = document.getElementById('confirmBooking');
-        if (hasDrawing && agree) {
-            confirmBtn.classList.add('active');
-        } else {
-            confirmBtn.classList.remove('active');
+        if (agree && confirmBtn) {
+            if (hasDrawing && agree.checked) {
+                confirmBtn.classList.add('active');
+            } else {
+                confirmBtn.classList.remove('active');
+            }
         }
     }
 
     document.getElementById('agreeTerms').addEventListener('change', checkSignature);
 
-    // ===== CONFIRM BOOKING =====
     document.getElementById('confirmBooking').addEventListener('click', function() {
         if (!this.classList.contains('active')) return;
 
@@ -201,27 +163,25 @@ if (canvas) {
         const date = document.getElementById('preferredDate')?.value || 'Not specified';
         const recap = document.getElementById('ideaRecap')?.value.trim() || 'No details provided';
         const payment = document.getElementById('selectedPayment')?.value || 'Not specified';
-        const agreed = document.getElementById('agreeTerms').checked ? 'Yes' : 'No';
 
         const message = `✅ FINAL BOOKING CONFIRMATION - InkForge%0A%0A` +
-                        `📝 CLIENT DETAILS:%0A` +
-                        `Name: ${name}%0A` +
-                        `Email: ${email}%0A` +
-                        `Phone: ${phone}%0A%0A` +
-                        `🎨 APPOINTMENT DETAILS:%0A` +
-                        `Placement: ${placement}%0A` +
-                        `Size: ${size}%0A` +
-                        `Preferred Date: ${date}%0A%0A` +
-                        `💡 Idea Recap:%0A${recap}%0A%0A` +
-                        `💳 Payment Method: ${payment}%0A` +
-                        `📋 Agreed to Terms: ${agreed}%0A` +
-                        `✍️ Signature: [Drawn on website]%0A%0A` +
-                        `💰 Deposit: 50% refundable required%0A` +
-                        `⏰ Refundable up to 48 hours before session%0A%0A` +
-                        `Please confirm availability and send payment details. Thanks!`;
+            `📝 CLIENT DETAILS:%0A` +
+            `Name: ${name}%0A` +
+            `Email: ${email}%0A` +
+            `Phone: ${phone}%0A%0A` +
+            `🎨 APPOINTMENT DETAILS:%0A` +
+            `Placement: ${placement}%0A` +
+            `Size: ${size}%0A` +
+            `Preferred Date: ${date}%0A%0A` +
+            `💡 Idea Recap:%0A${recap}%0A%0A` +
+            `💳 Payment Method: ${payment}%0A` +
+            `✍️ Signature: [Drawn on website]%0A%0A` +
+            `💰 Deposit: 50% refundable required%0A` +
+            `⏰ Refundable up to 48 hours before session%0A%0A` +
+            `Please confirm availability and send payment details. Thanks!`;
 
         window.location.href = `sms:+19494398195?body=${message}`;
     });
 }
 
-console.log('🔥 InkForge Studio loaded successfully!');
+console.log('🔥 InkForge loaded successfully!');
