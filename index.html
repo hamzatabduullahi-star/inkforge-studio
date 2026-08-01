@@ -7,7 +7,298 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d0d0d;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #fff;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s;
+        }
+        .nav a:hover { color: #fff; }
+        .nav-cta {
+            background: #fff;
+            color: #0d0d0d !important;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600 !important;
+            transition: all 0.3s;
+        }
+        .nav-cta:hover {
+            background: #e0e0e0;
+            transform: scale(1.02);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 30% 50%, rgba(60, 30, 30, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(30, 30, 60, 0.3) 0%, transparent 60%);
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 10;
+        }
+        .hero-content {
+            max-width: 700px;
+            padding: 20px;
+        }
+        .hero-content h1 {
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+        }
+        .hero-sub {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px 24px;
+            margin-bottom: 32px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .hero-badges i { margin-right: 6px; }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: #fff;
+            color: #0d0d0d;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: #e0e0e0;
+            transform: scale(1.02);
+        }
+        .btn-secondary {
+            display: inline-block;
+            background: transparent;
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+        }
+        .scroll-hint {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            animation: bounce 2s infinite;
+        }
+        .scroll-hint i {
+            display: block;
+            margin-top: 4px;
+            font-size: 1.2rem;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* ===== STYLES ===== */
+        .styles {
+            padding: 80px 0;
+            background: #0d0d0d;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 48px;
+            letter-spacing: -0.5px;
+        }
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        .style-item {
+            padding: 24px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s;
+        }
+        .style-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-4px);
+        }
+        .style-item i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .style-item span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 80px 0;
+            background: #0d0d0d;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .cta-section h2 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .cta-section p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 500px;
+            margin: 0 auto 36px;
+        }
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 32px 0;
+            background: #0a0a0a;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav { gap: 16px; }
+            .nav a:not(.nav-cta) { display: none; }
+            .nav-cta { padding: 6px 16px; font-size: 0.8rem; }
+            .hero-badges { flex-direction: column; gap: 8px; font-size: 0.8rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+                text-align: center;
+                padding: 14px 20px;
+            }
+            .styles-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+            .style-item { padding: 16px 8px; }
+            .style-item i { font-size: 1.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 { font-size: 2.4rem; }
+            .hero-sub { font-size: 0.95rem; }
+            .styles-grid { grid-template-columns: repeat(3, 1fr); }
+            .cta-section h2 { font-size: 1.8rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,35 +306,25 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <a href="index.html">InkForge</a>
+                <a href="#">InkForge</a>
             </div>
             <nav class="nav">
-                <a href="work.html">View our work</a>
+                <a href="#work">View our work</a>
                 <a href="#booking" class="nav-cta">Book a session</a>
             </nav>
         </div>
     </header>
 
-    <!-- ===== HERO SLIDESHOW ===== -->
+    <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
-        <div class="slideshow">
-            <div class="slide active" style="background-image: url('http://i.imgur.com/hQxZCsB.jpeg');"></div>
-            <div class="slide" style="background-image: url('http://i.imgur.com/nwTkZMX.jpeg');"></div>
-            <div class="slide" style="background-image: url('http://i.imgur.com/BLZsXFX.jpeg');"></div>
-            <div class="slide" style="background-image: url('http://i.imgur.com/MRcrtQK.jpeg');"></div>
-            <div class="slide" style="background-image: url('http://i.imgur.com/GqqEWvz.jpeg');"></div>
-            <div class="slide" style="background-image: url('http://i.imgur.com/jXac7Iw.jpeg');"></div>
-            <div class="slide" style="background-image: url('http://i.imgur.com/IL0blry.jpeg');"></div>
-            <div class="slide" style="background-image: url('http://i.imgur.com/R7qy5AL.jpeg');"></div>
-        </div>
-
+        <div class="hero-bg"></div>
         <div class="hero-overlay">
             <div class="hero-content">
                 <h1>Tattoos,<br />done right.</h1>
                 <p class="hero-sub">Independent artist. Custom work only.<br />I turn your idea into ink — clean lines, honest pricing, no rush.</p>
                 <div class="hero-buttons">
-                    <a href="#booking" class="btn-primary">Book a session</a>
-                    <a href="work.html" class="btn-secondary">View our work</a>
+                    <a href="#booking" class="btn-primary">Book a session →</a>
+                    <a href="#work" class="btn-secondary">View our work</a>
                 </div>
                 <div class="hero-badges">
                     <span><i class="fas fa-user"></i> One artist. All custom.</span>
@@ -53,13 +334,9 @@
                 <p class="scroll-hint">SCROLL <i class="fas fa-chevron-down"></i></p>
             </div>
         </div>
-
-        <button class="slider-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-        <button class="slider-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-        <div class="slider-dots" id="sliderDots"></div>
     </section>
 
-    <!-- ===== STYLES GRID ===== -->
+    <!-- ===== STYLES ===== -->
     <section class="styles" id="styles">
         <div class="container">
             <h2 class="section-title">Styles</h2>
@@ -76,140 +353,14 @@
         </div>
     </section>
 
-    <!-- ===== BOOKING SECTION ===== -->
-    <section class="booking" id="booking">
+    <!-- ===== CTA SECTION ===== -->
+    <section class="cta-section" id="work">
         <div class="container">
-            <h2 class="section-title">Book a Session</h2>
-            <p class="booking-sub">Confirm your appointment.</p>
-
-            <div class="booking-grid">
-                <!-- Step 1: You -->
-                <div class="booking-step">
-                    <span class="step-number">01</span>
-                    <h3>You</h3>
-                    <div class="form-group">
-                        <label>FULL NAME</label>
-                        <input type="text" id="clientName" placeholder="Jane Doe" />
-                    </div>
-                    <div class="form-group">
-                        <label>EMAIL</label>
-                        <input type="email" id="clientEmail" placeholder="jane@example.com" />
-                    </div>
-                    <div class="form-group">
-                        <label>PHONE</label>
-                        <input type="tel" id="clientPhone" placeholder="+1 949-439-8195" />
-                    </div>
-                </div>
-
-                <!-- Step 2: Your appointment -->
-                <div class="booking-step">
-                    <span class="step-number">02</span>
-                    <h3>Your appointment</h3>
-
-                    <div class="form-group">
-                        <label>PLACEMENT</label>
-                        <div class="placement-grid">
-                            <button class="placement-btn" data-value="Forearm">Forearm</button>
-                            <button class="placement-btn" data-value="Upper arm">Upper arm</button>
-                            <button class="placement-btn" data-value="Chest">Chest</button>
-                            <button class="placement-btn" data-value="Back">Back</button>
-                            <button class="placement-btn" data-value="Leg">Leg</button>
-                            <button class="placement-btn" data-value="Neck">Neck</button>
-                            <button class="placement-btn" data-value="Ribcage">Ribcage</button>
-                            <button class="placement-btn" data-value="Hand/finger">Hand/finger</button>
-                            <button class="placement-btn" data-value="Foot/ankle">Foot/ankle</button>
-                        </div>
-                        <input type="hidden" id="selectedPlacement" value="" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>APPROXIMATE SIZE</label>
-                        <select id="tattooSize">
-                            <option value="">Select a size</option>
-                            <option value="Small (2-4 inches)">Small (2-4 inches)</option>
-                            <option value="Medium (4-8 inches)">Medium (4-8 inches)</option>
-                            <option value="Large (8-12 inches)">Large (8-12 inches)</option>
-                            <option value="XL (12+ inches)">XL (12+ inches)</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>PREFERRED DATE</label>
-                        <input type="date" id="preferredDate" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>QUICK RECAP OF YOUR IDEA</label>
-                        <textarea id="ideaRecap" rows="3" placeholder="A short summary of what we already discussed..."></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== DEPOSIT & PAYMENT ===== -->
-    <section class="deposit" id="deposit">
-        <div class="container">
-            <div class="deposit-box">
-                <h2>A 50% refundable deposit<br />books your appointment.</h2>
-
-                <p class="deposit-desc">
-                    A <strong>refundable 50% deposit</strong> is required to secure your
-                    appointment. This deposit will be credited toward your final balance
-                    and remains <strong>fully refundable up to 48 hours</strong> before
-                    your session. Once your request is submitted, payment details will
-                    be provided based on your selected payment method.
-                </p>
-
-                <div class="payment-methods">
-                    <label>PREFERRED PAYMENT METHOD</label>
-                    <div class="payment-grid">
-                        <button class="payment-btn" data-value="Zelle">Zelle</button>
-                        <button class="payment-btn" data-value="Apple Pay">Apple Pay</button>
-                        <button class="payment-btn" data-value="PayPal">PayPal</button>
-                        <button class="payment-btn" data-value="Chime">Chime</button>
-                        <button class="payment-btn" data-value="Bitcoin">Bitcoin</button>
-                    </div>
-                    <input type="hidden" id="selectedPayment" value="" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== STUDIO TERMS & SIGNATURE ===== -->
-    <section class="studio-terms-section" id="studio-terms">
-        <div class="container">
-            <div class="terms-box">
-                <h2>Studio Terms</h2>
-                <p class="terms-sub">InkForge — quick terms.</p>
-
-                <div class="terms-content">
-                    <ol>
-                        <li>
-                            <strong>Deposit.</strong> A refundable 50% deposit of our agreed total books your appointment. I'll reach out with the payment details once you've submitted this form. The deposit is applied to your final cost.
-                        </li>
-                    </ol>
-
-                    <div class="terms-checkbox">
-                        <input type="checkbox" id="agreeTerms" />
-                        <label for="agreeTerms">I agree to the studio terms and confirm my info is accurate.</label>
-                    </div>
-                </div>
-
-                <div class="signature-area">
-                    <label>SIGN HERE</label>
-                    <p class="signature-hint">Sign with mouse, trackpad or finger.</p>
-                    <div class="signature-pad" id="signaturePad">
-                        <canvas id="signatureCanvas"></canvas>
-                        <button class="btn-clear" id="clearSignature">CLEAR</button>
-                    </div>
-                </div>
-
-                <p class="response-note">I'll reach out within 48 hours.</p>
-
-                <button class="btn-primary" id="confirmBooking">
-                    Confirm appointment →
-                </button>
+            <h2>Got an idea?<br />Hit me up.</h2>
+            <p>Already know what you want? Lock in your appointment and I'll take it from there.</p>
+            <div class="cta-buttons">
+                <a href="#booking" class="btn-primary">Book a session →</a>
+                <a href="#styles" class="btn-secondary">View my work below</a>
             </div>
         </div>
     </section>
@@ -221,6 +372,20 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <!-- ===== SIMPLE SCRIPT ===== -->
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        console.log('🔥 InkForge loaded successfully!');
+    </script>
 </body>
 </html>
