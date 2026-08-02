@@ -160,7 +160,6 @@
     </footer>
 
     <script>
-        // Hamburger menu
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobileNav');
         const body = document.body;
@@ -190,7 +189,6 @@
             }
         });
 
-        // Fade-in animations
         const fadeElements = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -201,7 +199,6 @@
         }, { threshold: 0.15 });
         fadeElements.forEach(el => observer.observe(el));
 
-        // Header scroll effect
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -211,7 +208,6 @@
             }
         });
 
-        // Placement buttons
         const placementBtns = document.querySelectorAll('.placement-btn');
         const selectedPlacement = document.getElementById('selectedPlacement');
 
@@ -225,7 +221,6 @@
             });
         });
 
-        // Payment method buttons
         const paymentBtns = document.querySelectorAll('.payment-btn');
         const selectedPayment = document.getElementById('selectedPayment');
 
@@ -239,7 +234,6 @@
             });
         });
 
-        // Signature pad
         const canvas = document.getElementById('signatureCanvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -368,6 +362,8 @@
                 });
             }
         }
+
+        console.log('🔥 InkForge booking page loaded!');
     </script>
 </body>
 </html>
