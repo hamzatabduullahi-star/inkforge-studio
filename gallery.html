@@ -61,6 +61,11 @@
         </div>
     </section>
 
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">✕</button>
+        <img id="lightboxImage" src="" alt="Tattoo preview" />
+    </div>
+
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 InkForge. All rights reserved.</p>
@@ -68,7 +73,6 @@
     </footer>
 
     <script>
-        // Hamburger menu
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobileNav');
         const body = document.body;
@@ -98,7 +102,35 @@
             }
         });
 
-        // Fade-in animations
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if (img) {
+                    lightboxImage.src = img.src;
+                    lightboxImage.alt = img.alt || 'Tattoo preview';
+                    lightbox.classList.add('active');
+                    body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            body.style.overflow = '';
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
         const fadeElements = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -109,7 +141,6 @@
         }, { threshold: 0.15 });
         fadeElements.forEach(el => observer.observe(el));
 
-        // Header scroll effect
         const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
