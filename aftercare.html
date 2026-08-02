@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InkForge – Aftercare</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1e1e1e;
+            color: #e8e8e8;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(2px 2px at 10% 15%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 25% 40%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 40% 8%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(2px 2px at 55% 65%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 70% 25%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 85% 75%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 15% 85%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 50% 50%, rgba(255, 255, 255, 0.4), transparent),
+                radial-gradient(2px 2px at 65% 12%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 90% 50%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 5% 55%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 75% 88%, rgba(255, 255, 255, 0.4), transparent),
+                radial-gradient(2px 2px at 35% 75%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 95% 18%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 45% 28%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(3px 3px at 20% 45%, rgba(200, 168, 110, 0.35), transparent),
+                radial-gradient(3px 3px at 60% 35%, rgba(200, 168, 110, 0.3), transparent),
+                radial-gradient(3px 3px at 80% 65%, rgba(200, 168, 110, 0.35), transparent),
+                radial-gradient(3px 3px at 30% 90%, rgba(200, 168, 110, 0.25), transparent),
+                radial-gradient(3px 3px at 70% 10%, rgba(200, 168, 110, 0.3), transparent),
+                radial-gradient(3px 3px at 50% 70%, rgba(200, 168, 110, 0.25), transparent),
+                radial-gradient(3px 3px at 10% 30%, rgba(200, 168, 110, 0.3), transparent),
+                radial-gradient(3px 3px at 90% 80%, rgba(200, 168, 110, 0.25), transparent);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(30, 30, 30, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(200, 168, 110, 0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e8e8e8;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav a {
+            font-size: 0.85rem;
+            color: rgba(232, 232, 232, 0.5);
+            transition: color 0.3s;
+        }
+        .nav a:hover {
+            color: #c8a86e;
+        }
+        .nav-cta {
+            color: #c8a86e !important;
+            font-weight: 600 !important;
+        }
+        .nav-cta::after {
+            content: ' →';
+            display: inline-block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 2.5px;
+            background: #c8a86e;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(30, 30, 30, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 100px 24px 40px;
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+        .mobile-nav.active {
+            display: flex;
+        }
+        .mobile-nav a {
+            font-size: 1.5rem;
+            color: rgba(232, 232, 232, 0.6);
+            transition: color 0.3s;
+        }
+        .mobile-nav a:hover {
+            color: #c8a86e;
+        }
+        .mobile-nav .nav-cta-mobile {
+            color: #c8a86e !important;
+            font-weight: 600 !important;
+        }
+        .mobile-nav .nav-cta-mobile::after {
+            content: ' →';
+        }
+
+        .page-hero {
+            padding: 140px 0 60px;
+            text-align: center;
+            background: transparent;
+            border-bottom: 1px solid rgba(200, 168, 110, 0.06);
+        }
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e8e8e8;
+        }
+        .page-sub {
+            font-size: 1rem;
+            color: rgba(232, 232, 232, 0.4);
+        }
+
+        .aftercare-page {
+            padding: 60px 0 80px;
+            background: transparent;
+        }
+        .aftercare-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+        .aftercare-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(200, 168, 110, 0.06);
+            transition: all 0.4s;
+        }
+        .aftercare-card:hover {
+            background: rgba(200, 168, 110, 0.05);
+            transform: translateY(-6px);
+            border-color: rgba(200, 168, 110, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .aftercare-card .step-number {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: rgba(200, 168, 110, 0.2);
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .aftercare-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #e8e8e8;
+        }
+        .aftercare-card p {
+            font-size: 0.9rem;
+            color: rgba(232, 232, 232, 0.4);
+            line-height: 1.6;
+        }
+
+        .aftercare-contact {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(200, 168, 110, 0.06);
+        }
+        .aftercare-contact h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e8e8e8;
+        }
+        .aftercare-contact p {
+            font-size: 1rem;
+            color: rgba(232, 232, 232, 0.4);
+            margin-bottom: 24px;
+        }
+        .aftercare-contact a {
+            color: #c8a86e;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .aftercare-contact a::after {
+            content: ' →';
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+        .aftercare-contact a:hover::after {
+            transform: translateX(4px);
+        }
+
+        .footer {
+            padding: 32px 0;
+            background: rgba(10, 10, 10, 0.8);
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(232, 232, 232, 0.15);
+            border-top: 1px solid rgba(200, 168, 110, 0.06);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .aftercare-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            .aftercare-card {
+                padding: 24px;
+            }
+            .aftercare-contact {
+                padding: 24px;
+            }
+            .aftercare-contact h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">InkForge</a>
+            </div>
+            <nav class="nav">
+                <a href="gallery.html">Gallery</a>
+                <a href="booking.html" class="nav-cta">Book a session</a>
+            </nav>
+            <button class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book a session</a>
+        <a href="aftercare.html">Aftercare</a>
+    </div>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Heal it right.</h1>
+            <p class="page-sub">Six things to do (and not do) for the first 3–4 weeks.<br />Follow these and your tattoo will settle beautifully.</p>
+        </div>
+    </section>
+
+    <section class="aftercare-page">
+        <div class="container">
+            <div class="aftercare-grid">
+                <div class="aftercare-card">
+                    <span class="step-number">01</span>
+                    <h3>Keep it wrapped</h3>
+                    <p>Leave the film on for 2–4 hours. Peel it off gently — never rip.</p>
+                </div>
+                <div class="aftercare-card">
+                    <span class="step-number">02</span>
+                    <h3>Moisturize daily</h3>
+                    <p>Thin layer of unscented balm 2–3× a day for two weeks. Less is more.</p>
+                </div>
+                <div class="aftercare-card">
+                    <span class="step-number">03</span>
+                    <h3>Gentle washing</h3>
+                    <p>Lukewarm water, fragrance-free soap, twice a day. Pat dry — don't rub.</p>
+                </div>
+                <div class="aftercare-card">
+                    <span class="step-number">04</span>
+                    <h3>Avoid sun & water</h3>
+                    <p>No pools, oceans or saunas for 3 weeks. SPF 50 on it for the first year.</p>
+                </div>
+                <div class="aftercare-card">
+                    <span class="step-number">05</span>
+                    <h3>Don't pick or scratch</h3>
+                    <p>Itching is normal. Tap, don't scratch. Picking pulls pigment.</p>
+                </div>
+                <div class="aftercare-card">
+                    <span class="step-number">06</span>
+                    <h3>Touch-up policy</h3>
+                    <p>One free touch-up within 90 days of your session. Just message me.</p>
+                </div>
+            </div>
+
+            <div class="aftercare-contact">
+                <h2>IF ANYTHING FEELS OFF</h2>
+                <p>Hit me up. I'd rather hear from you early than worry quietly.</p>
+                <a href="booking.html">Book a session</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 InkForge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (mobileNav.classList.contains('active') &&
+                !mobileNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
