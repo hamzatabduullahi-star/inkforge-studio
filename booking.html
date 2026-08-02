@@ -11,7 +11,7 @@
 <body>
 
     <!-- ===== HEADER ===== -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="container">
             <div class="logo">
                 <a href="index.html">InkForge</a>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- ===== BOOKING HERO ===== -->
-    <section class="page-hero">
+    <section class="page-hero fade-in">
         <div class="container">
             <h1>Book a Session</h1>
             <p class="page-sub">Confirm your appointment.</p>
@@ -43,7 +43,7 @@
     </section>
 
     <!-- ===== BOOKING FORM ===== -->
-    <section class="booking-page">
+    <section class="booking-page fade-in">
         <div class="container">
             <div class="booking-grid">
                 <!-- Step 1: You -->
@@ -202,6 +202,27 @@
             }
         });
 
+        // ===== FADE-IN ANIMATIONS =====
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+        fadeElements.forEach(el => observer.observe(el));
+
+        // ===== HEADER SCROLL EFFECT =====
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
         // ===== PLACEMENT BUTTONS =====
         const placementBtns = document.querySelectorAll('.placement-btn');
         const selectedPlacement = document.getElementById('selectedPlacement');
@@ -331,7 +352,6 @@
                 confirmBtn.addEventListener('click', function() {
                     if (!this.classList.contains('active')) return;
 
-                    // Get form values
                     const name = document.getElementById('clientName')?.value.trim() || 'Not provided';
                     const email = document.getElementById('clientEmail')?.value.trim() || 'Not provided';
                     const phone = document.getElementById('clientPhone')?.value.trim() || 'Not provided';
@@ -341,7 +361,6 @@
                     const recap = document.getElementById('ideaRecap')?.value.trim() || 'No details provided';
                     const payment = document.getElementById('selectedPayment')?.value || 'Not specified';
 
-                    // Build iMessage text (URL encoded)
                     const message = `✅ FINAL BOOKING CONFIRMATION - InkForge%0A%0A` +
                         `📝 CLIENT DETAILS:%0A` +
                         `Name: ${name}%0A` +
@@ -358,7 +377,6 @@
                         `⏰ Refundable up to 48 hours before session%0A%0A` +
                         `Please confirm availability and send payment details. Thanks!`;
 
-                    // Open iMessage with pre-filled message
                     window.location.href = `sms:+19494398195?body=${message}`;
                 });
             }
