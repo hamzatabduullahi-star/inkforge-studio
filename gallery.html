@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InkForge – Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1e1e1e;
+            color: #e8e8e8;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(2px 2px at 10% 15%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 25% 40%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 40% 8%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(2px 2px at 55% 65%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 70% 25%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 85% 75%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 15% 85%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 50% 50%, rgba(255, 255, 255, 0.4), transparent),
+                radial-gradient(2px 2px at 65% 12%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(2px 2px at 90% 50%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 5% 55%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 75% 88%, rgba(255, 255, 255, 0.4), transparent),
+                radial-gradient(2px 2px at 35% 75%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(2px 2px at 95% 18%, rgba(255, 255, 255, 0.5), transparent),
+                radial-gradient(2px 2px at 45% 28%, rgba(255, 255, 255, 0.7), transparent),
+                radial-gradient(3px 3px at 20% 45%, rgba(200, 168, 110, 0.35), transparent),
+                radial-gradient(3px 3px at 60% 35%, rgba(200, 168, 110, 0.3), transparent),
+                radial-gradient(3px 3px at 80% 65%, rgba(200, 168, 110, 0.35), transparent),
+                radial-gradient(3px 3px at 30% 90%, rgba(200, 168, 110, 0.25), transparent),
+                radial-gradient(3px 3px at 70% 10%, rgba(200, 168, 110, 0.3), transparent),
+                radial-gradient(3px 3px at 50% 70%, rgba(200, 168, 110, 0.25), transparent),
+                radial-gradient(3px 3px at 10% 30%, rgba(200, 168, 110, 0.3), transparent),
+                radial-gradient(3px 3px at 90% 80%, rgba(200, 168, 110, 0.25), transparent);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(30, 30, 30, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(200, 168, 110, 0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e8e8e8;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav a {
+            font-size: 0.85rem;
+            color: rgba(232, 232, 232, 0.5);
+            transition: color 0.3s;
+        }
+        .nav a:hover,
+        .nav a.active {
+            color: #c8a86e;
+        }
+        .nav-cta {
+            color: #c8a86e !important;
+            font-weight: 600 !important;
+        }
+        .nav-cta::after {
+            content: ' →';
+            display: inline-block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 2.5px;
+            background: #c8a86e;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(30, 30, 30, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 100px 24px 40px;
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+        .mobile-nav.active {
+            display: flex;
+        }
+        .mobile-nav a {
+            font-size: 1.5rem;
+            color: rgba(232, 232, 232, 0.6);
+            transition: color 0.3s;
+        }
+        .mobile-nav a:hover {
+            color: #c8a86e;
+        }
+        .mobile-nav .nav-cta-mobile {
+            color: #c8a86e !important;
+            font-weight: 600 !important;
+        }
+        .mobile-nav .nav-cta-mobile::after {
+            content: ' →';
+        }
+
+        .page-hero {
+            padding: 140px 0 60px;
+            text-align: center;
+            background: transparent;
+            border-bottom: 1px solid rgba(200, 168, 110, 0.06);
+        }
+        .page-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e8e8e8;
+        }
+        .page-sub {
+            font-size: 1rem;
+            color: rgba(232, 232, 232, 0.4);
+        }
+
+        .gallery-page {
+            padding: 60px 0 80px;
+            background: transparent;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 12px;
+            aspect-ratio: 1/1;
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(200, 168, 110, 0.06);
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+        .gallery-item:hover {
+            border-color: rgba(200, 168, 110, 0.3);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .footer {
+            padding: 32px 0;
+            background: rgba(10, 10, 10, 0.8);
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(232, 232, 232, 0.15);
+            border-top: 1px solid rgba(200, 168, 110, 0.06);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">InkForge</a>
+            </div>
+            <nav class="nav">
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="booking.html" class="nav-cta">Book a session</a>
+            </nav>
+            <button class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="booking.html">Book a session</a>
+        <a href="aftercare.html">Aftercare</a>
+    </div>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our Work</h1>
+            <p class="page-sub">A collection of recent tattoos —<br />across all our styles.</p>
+        </div>
+    </section>
+
+    <section class="gallery-page">
+        <div class="container">
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="http://i.imgur.com/hQxZCsB.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/nwTkZMX.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/BLZsXFX.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/MRcrtQK.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/GqqEWvz.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/jXac7Iw.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/IL0blry.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/R7qy5AL.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/m8RmHdw.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/Iq13IBi.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/v1cLfHA.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/Y5eXiXE.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/TB8TkTT.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/K17eEd5.jpeg" alt="Tattoo" /></div>
+                <div class="gallery-item"><img src="http://i.imgur.com/WeMTKfC.jpeg" alt="Tattoo" /></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 InkForge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+        const body = document.body;
+
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (mobileNav.classList.contains('active') &&
+                !mobileNav.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+    </script>
+</body>
+</html>
