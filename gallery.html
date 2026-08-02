@@ -59,6 +59,7 @@
             display: block;
         }
 
+        /* ===== HEADER ===== */
         .header {
             position: fixed;
             top: 0;
@@ -107,6 +108,7 @@
             transform: translateX(4px);
         }
 
+        /* ===== HAMBURGER ===== */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -135,6 +137,7 @@
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
+        /* ===== MOBILE NAV ===== */
         .mobile-nav {
             display: none;
             position: fixed;
@@ -170,6 +173,7 @@
             content: ' →';
         }
 
+        /* ===== PAGE HERO ===== */
         .page-hero {
             padding: 140px 0 60px;
             text-align: center;
@@ -187,6 +191,7 @@
             color: rgba(232, 232, 232, 0.3);
         }
 
+        /* ===== GALLERY ===== */
         .gallery-page {
             padding: 60px 0 80px;
             background: transparent;
@@ -219,6 +224,7 @@
             transform: scale(1.05);
         }
 
+        /* ===== FOOTER ===== */
         .footer {
             padding: 32px 0;
             background: rgba(5, 5, 5, 0.8);
@@ -228,6 +234,7 @@
             border-top: 1px solid rgba(200, 168, 110, 0.04);
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .nav {
                 display: none;
@@ -252,6 +259,7 @@
 </head>
 <body>
 
+    <!-- ===== HEADER ===== -->
     <header class="header">
         <div class="container">
             <div class="logo">
@@ -267,6 +275,7 @@
         </div>
     </header>
 
+    <!-- ===== MOBILE NAV ===== -->
     <div class="mobile-nav" id="mobileNav">
         <a href="index.html">Home</a>
         <a href="gallery.html">Gallery</a>
@@ -274,6 +283,7 @@
         <a href="aftercare.html">Aftercare</a>
     </div>
 
+    <!-- ===== GALLERY HERO ===== -->
     <section class="page-hero">
         <div class="container">
             <h1>Our Work</h1>
@@ -281,6 +291,7 @@
         </div>
     </section>
 
+    <!-- ===== GALLERY GRID ===== -->
     <section class="gallery-page">
         <div class="container">
             <div class="gallery-grid">
@@ -303,12 +314,14 @@
         </div>
     </section>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 InkForge. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- ===== SCRIPT ===== -->
     <script>
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobileNav');
