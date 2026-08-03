@@ -470,7 +470,9 @@
             color: rgba(232, 232, 232, 0.2);
             margin-bottom: 24px;
         }
-        #confirmBooking {
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
             background: transparent;
             color: #c8a86e;
             padding: 16px 48px;
@@ -481,21 +483,52 @@
             transition: all 0.3s;
             opacity: 0.4;
             pointer-events: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
-        #confirmBooking::after {
+        .btn-primary::after {
             content: ' →';
             transition: transform 0.3s;
             display: inline-block;
         }
-        #confirmBooking.active {
+        .btn-primary.active {
             opacity: 1;
             pointer-events: auto;
         }
-        #confirmBooking.active:hover {
+        .btn-primary.active:hover {
             color: #d4af37;
         }
-        #confirmBooking.active:hover::after {
+        .btn-primary.active:hover::after {
             transform: translateX(4px);
+        }
+        .btn-primary i {
+            font-size: 1.2rem;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: #25D366;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid rgba(37, 211, 102, 0.25);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-top: 12px;
+        }
+        .btn-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.1);
+            border-color: #25D366;
+            transform: scale(1.02);
+        }
+        .btn-whatsapp i {
+            font-size: 1.4rem;
         }
 
         .footer {
@@ -505,6 +538,9 @@
             font-size: 0.75rem;
             color: rgba(232, 232, 232, 0.15);
             border-top: 1px solid rgba(200, 168, 110, 0.06);
+        }
+        .footer a {
+            color: #c8a86e;
         }
 
         @media (max-width: 768px) {
@@ -542,8 +578,14 @@
             #signatureCanvas {
                 height: 140px;
             }
-            #confirmBooking {
+            .btn-primary {
                 padding: 14px 32px;
+                font-size: 0.9rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .btn-whatsapp {
+                padding: 14px 24px;
                 font-size: 0.9rem;
                 width: 100%;
                 justify-content: center;
@@ -697,9 +739,18 @@
 
                 <p class="response-note">I'll reach out within 48 hours.</p>
 
+                <!-- iMessage Button -->
                 <button class="btn-primary" id="confirmBooking">
-                    Confirm appointment →
+                    <i class="fab fa-apple"></i> Confirm via iMessage →
                 </button>
+
+                <!-- WhatsApp Button -->
+                <div style="margin-top: 12px;">
+                    <a href="https://wa.me/12632224162?text=Hi%20InkForge!%20I'd%20like%20to%20book%20a%20tattoo%20appointment.%0A%0AName:%20%0AEmail:%20%0APhone:%20%0APlacement:%20%0ASize:%20%0APreferred%20Date:%20%0AIdea:%20" 
+                       class="btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
+                    </a>
+                </div>
             </div>
         </div>
     </section>
