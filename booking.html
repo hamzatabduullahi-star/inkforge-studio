@@ -746,8 +746,7 @@
 
                 <!-- WhatsApp Button -->
                 <div style="margin-top: 12px;">
-                    <a href="https://wa.me/12632224162?text=Hi%20InkForge!%20I'd%20like%20to%20book%20a%20tattoo%20appointment.%0A%0AName:%20%0AEmail:%20%0APhone:%20%0APlacement:%20%0ASize:%20%0APreferred%20Date:%20%0AIdea:%20" 
-                       class="btn-whatsapp" target="_blank">
+                    <a href="#" class="btn-whatsapp" id="whatsappBooking" target="_blank">
                         <i class="fab fa-whatsapp"></i> Confirm via WhatsApp
                     </a>
                 </div>
@@ -762,7 +761,7 @@
     </footer>
 
     <script>
-        // Hamburger menu
+        // ===== HAMBURGER MENU =====
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobileNav');
         const body = document.body;
@@ -792,7 +791,7 @@
             }
         });
 
-        // Placement buttons
+        // ===== PLACEMENT BUTTONS =====
         const placementBtns = document.querySelectorAll('.placement-btn');
         const selectedPlacement = document.getElementById('selectedPlacement');
 
@@ -806,7 +805,7 @@
             });
         });
 
-        // Payment method buttons
+        // ===== PAYMENT METHOD BUTTONS =====
         const paymentBtns = document.querySelectorAll('.payment-btn');
         const selectedPayment = document.getElementById('selectedPayment');
 
@@ -820,7 +819,7 @@
             });
         });
 
-        // Signature pad
+        // ===== SIGNATURE PAD =====
         const canvas = document.getElementById('signatureCanvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -915,6 +914,7 @@
                 agreeTerms.addEventListener('change', checkSignature);
             }
 
+            // ===== CONFIRM BOOKING → iMESSAGE =====
             const confirmBtn = document.getElementById('confirmBooking');
             if (confirmBtn) {
                 confirmBtn.addEventListener('click', function() {
@@ -948,6 +948,45 @@
                     window.location.href = `sms:+19494398195?body=${message}`;
                 });
             }
+        }
+
+        // ===== WHATSAPP BOOKING (AUTO-FILL) =====
+        const whatsappBtn = document.getElementById('whatsappBooking');
+
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Get form values
+                const name = document.getElementById('clientName')?.value.trim() || 'Not provided';
+                const email = document.getElementById('clientEmail')?.value.trim() || 'Not provided';
+                const phone = document.getElementById('clientPhone')?.value.trim() || 'Not provided';
+                const placement = document.getElementById('selectedPlacement')?.value || 'Not specified';
+                const size = document.getElementById('tattooSize')?.value || 'Not specified';
+                const date = document.getElementById('preferredDate')?.value || 'Not specified';
+                const recap = document.getElementById('ideaRecap')?.value.trim() || 'No details provided';
+                const payment = document.getElementById('selectedPayment')?.value || 'Not specified';
+
+                // Build the message
+                const message = `✅ FINAL BOOKING CONFIRMATION - InkForge%0A%0A` +
+                    `📝 CLIENT DETAILS:%0A` +
+                    `Name: ${name}%0A` +
+                    `Email: ${email}%0A` +
+                    `Phone: ${phone}%0A%0A` +
+                    `🎨 APPOINTMENT DETAILS:%0A` +
+                    `Placement: ${placement}%0A` +
+                    `Size: ${size}%0A` +
+                    `Preferred Date: ${date}%0A%0A` +
+                    `💡 Idea Recap:%0A${recap}%0A%0A` +
+                    `💳 Payment Method: ${payment}%0A` +
+                    `✍️ Signature: [Drawn on website]%0A%0A` +
+                    `💰 Deposit: 50% refundable required%0A` +
+                    `⏰ Refundable up to 48 hours before session%0A%0A` +
+                    `Please confirm availability and send payment details. Thanks!`;
+
+                // Open WhatsApp with pre-filled message
+                window.location.href = `https://wa.me/12632224162?text=${message}`;
+            });
         }
 
         console.log('🔥 InkForge booking page loaded!');
